@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+ll mod = 1e9+7;
+
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n, k;
+    cin >> n >> k;
+    int cnt = n;
+    while(k--){
+      int x, y;
+      cin >> x >> y;
+      cnt -= (2-(x==y));
+    }
+    ll dp[n+1] = {0};
+    dp[0] = dp[1] = 1;
+    for(int i = 2; i <= cnt; i++){
+      dp[i] = (dp[i-1] + (2*(i-1)*dp[i-2]%mod))% mod;
+    }
+    cout << dp[cnt] << endl;
+  }
+}
