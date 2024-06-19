@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n, m;
+    cin >> n >> m;
+    int xa, ya, xb, yb;
+    cin >> xa >> ya >> xb >> yb;
+    if(xb < xa){
+      cout << "Draw" << endl;
+      continue;
+    }
+    int disx = xb - xa;
+    if(disx & 1){
+      int disy;
+      if(abs(ya-yb) <= 1){
+        cout << "Alice" << endl;
+        continue;
+      }
+      else if(ya < yb){
+        disy = abs(ya-m)-1;
+      }
+      else{
+        disy = abs(ya-1)-1;
+      }
+      if(disx/2 < disy){
+        cout << "Draw";
+      }else cout << "Alice";
+    }else{
+      int disy;
+      if(abs(ya-yb) <= 0){
+        cout << "Bob" << endl;
+        continue;
+      }
+      else if(yb < ya){
+        disy = abs(yb-m);
+      }
+      else{
+        disy = abs(yb-1);
+      }
+      if(disx/2 < disy){
+        cout << "Draw";
+      }else cout << "Bob";
+    }
+    cout << endl;
+  }
+}
