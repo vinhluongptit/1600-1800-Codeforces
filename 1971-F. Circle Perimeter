@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    ll n;
+    cin >> n;
+    ll high = n;
+    ll ans = 0;
+    for(ll i = 0; i <= n; i++){
+      while(i*i + high*high >= (n+1)*(n+1)){
+        high--;
+      }
+      ll tmp = high;
+      while(i*i+tmp*tmp >= n*n && tmp > 0){
+        ans++;
+        tmp--;
+      }
+    }
+    cout << ans*4 << endl;
+  }
+}
