@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    ll n, k, d;
+    cin >> n >> k >> d;
+    vector<ll> v(n), b(k), tmp(n);
+    for(int i = 0; i < n; i++){
+      cin >> v[i];
+      tmp[i] = (i+1)-v[i];
+    }
+    for(int i = 0; i < k; i++){
+      cin >> b[i];
+    }
+    ll x = min(d,5001*1LL);
+    ll cnt = 0;
+    if(d == 1){
+      for(int i = 0; i < n; i++){
+        if(tmp[i] == 0) cnt++;
+      }
+      cout << cnt << endl;
+      continue;
+    }
+    for(int i = 0; i < x; i++){
+      ll cnt1 = 0;
+      for(int j = 0; j < min(n,5001*1LL); j++){
+        if(tmp[j] == 0) cnt1++;
+      }
+      cnt = max(cnt, cnt1+(d-i-1)/2);
+      for(int j = 0; j < min(n, b[i%k]); j++){
+        tmp[j]--;
+      }
+    }
+    cout << cnt << endl;
+  }
+}
