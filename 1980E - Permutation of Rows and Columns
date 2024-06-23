@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> read(int n){
+  vector<int> res(n);
+  for(int i = 0; i < n; i++){
+    cin >> res[i];
+  }
+  return res;
+}
+
+vector<vector<int>> readmatrix(int n, int m){
+  vector<vector<int>> res(n);
+  for(int i = 0; i < n; i++){
+    res[i] = read(m);
+  }
+  return res;
+}
+
+void solve(){
+  int n, m;
+  cin >> n >> m;
+  vector<vector<int>> a = readmatrix(n, m), b = readmatrix(n, m);
+  int nm = n*m;
+  vector<int> pos1i(nm), pos2i(nm), pos1j(nm), pos2j(nm);
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < m; j++){
+      int x = a[i][j]-1;
+      int y = b[i][j]-1;
+      pos1i[x] = pos2i[y] = i;
+      pos1j[x] = pos2j[y] = j;
+    }
+  }
+  vector<set<int>> pi(nm), pj(nm);
+  for(int i = 0; i < nm; i++){
+    int i1 = pos1i[i], i2 = pos2i[i];
+    int j1 = pos1j[i], j2 = pos2j[i];
+    pi[i1].insert(i2);
+    pj[j1].insert(j2);
+  }
+  for(int i = 0; i < nm; i++){
+    if(pi[i].size() > 1 || pj[i].size() > 1){
+      cout << "No";
+      return;
+    }
+  }
+  cout << "Yes";
+  return;
+}
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    solve();
+    cout <<endl;
+  }
+}
