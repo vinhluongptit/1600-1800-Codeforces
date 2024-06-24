@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    ll n, c;
+    cin >> n >> c;
+    vector<ll> v(n);
+    for(int i = 0; i < n; i++){
+      cin >> v[i];
+    }
+    if(n==1){
+      cout << 0 << endl;
+      continue;
+    }
+    ll maxx = *max_element(v.begin()+1, v.end());
+    ll tmp = max(v[0]+c, maxx);
+    ll winner;
+    if(tmp == (v[0]+c)){
+      winner = 0;
+    }else{
+      winner = find(v.begin()+1, v.end(), tmp) - v.begin();
+    }
+    ll sum = c;
+    for(int i = 0; i < n; i++){
+      int ans;
+      if(i == winner){
+        ans = 0;
+      }else if(v[i]+sum >= maxx){
+        ans = i;
+      }else ans = i +1;
+      cout << ans << " ";
+      sum += v[i];
+    }
+    cout << endl;
+  }
+}
