@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+#include <unordered_set>
+
+using namespace std;
+
+unordered_set<int> solve(int a){
+  unordered_set<int> tmp;
+  for(int i = 1; i <= sqrt(a); i++){
+    if(a % i == 0){
+      if(i%2==0)tmp.insert(i);
+      if((a/i)%2==0)tmp.insert(a/i);
+    }
+  }
+  unordered_set<int> yes;
+  for(auto it : tmp){
+    yes.insert(1+it/2);
+  }
+  return yes;
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--){
+      int n, x;
+      cin >> n >> x;
+      unordered_set<int> tmp = solve(n-x);
+      for(auto it : solve(n+x-2)){
+        tmp.insert(it);
+      }
+      int ans = 0;
+      for(auto it : tmp){
+        if(it >= x){
+          ans++;
+        }
+      }
+      cout << ans << endl;
+    }
+}
