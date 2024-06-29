@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    ll ans = 1;
+    while(n){
+      int tmp = n%10;
+      n /= 10;
+      ll cnt = 0;
+      for(int i = 0; i <= tmp; i++){
+        for(int j = 0; j <= tmp; j++){
+          if(i+j <= tmp) cnt++;
+        }
+      }
+      ans *= cnt;
+    }
+    cout << ans << endl;
+  }
+}
