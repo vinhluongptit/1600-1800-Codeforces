@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+map<ll,ll> mp;
+int n;
+
+long long check(ll a, ll b){
+  ll tmp = 1ll*a*a-1ll*4*b;
+  if(tmp < 0) return 0;
+  ll x1 = (a-sqrt(tmp))/2;
+  ll x2 = (a+sqrt(tmp))/2;
+  if(x1+x2 != a || x1*x2 != b){
+    return 0;
+  }
+  if(x1 == x2){
+    return (mp[x1]*(mp[x1]-1))/2;
+  }else{
+    return mp[x1]*mp[x2];
+  }
+}
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    mp.clear();
+    cin >> n;
+    vector<int> v(n);
+    for(int i = 0; i < n; i++){
+      cin >> v[i];
+      mp[v[i]]++;
+    }
+    int q;
+    cin >> q;
+    while(q--){
+      ll a, b;
+      cin >> a >> b;
+      cout << check(a, b) << " ";
+    }
+    cout << endl;
+  }
+}
