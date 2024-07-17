@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+  	ll n;
+  	cin >> n;
+  	ll tmp = -1;
+  	for(int i = 1; i <= 10000; i++){
+  		if(n > i*(i+1)/2){
+  			tmp = i+1;
+		}
+	}
+	if(tmp == -1) tmp = 1;
+	ll tmp2 = tmp;
+	ll cnt = 1;
+	ll ans = 0;
+	for(int i = tmp; i >= 1; i--){
+		if(i != tmp) n -= (i+1);
+		for(int j = 1; j <= cnt; j++){
+			ll x = (n+j-1);
+			if(x >= 1LL*((tmp2-1)*1LL*(tmp2)/2 + 1) && x <= 1LL*(tmp2)*1LL*(tmp2+1)/2){
+				ans += x*x;
+			}
+		}
+		cnt++;
+		tmp2--;
+	}
+	cout << ans  << endl;
+  }
+}
