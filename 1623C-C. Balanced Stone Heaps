@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int mod = 1e9 + 7;
+
+int main() 
+{
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		vector<int> v(n), tmp(n);
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+		}
+		int l = 1, r = *max_element(v.begin(), v.end());
+		while(r - l > 1){
+			int mid = (l+r) / 2;
+			vector<int> vec(n), vec2(n);
+			for(int i = n-1; i >= 0; i--){
+				vec[i] = v[i];
+			}
+			int ok = 1;
+			for(int i = n-1; i >= 2; i--){
+				if(vec[i]+vec2[i] < mid){
+					ok = 0;
+					break;
+				}
+				int tmp = min(vec[i], (vec[i]+vec2[i])-mid);
+				vec2[i-1] += tmp/3;
+				vec2[i-2] += (tmp/3) * 2;
+			}
+			if(vec[0]+vec2[0] < mid || vec[1]+vec2[1] < mid) ok = 0;
+			if(ok) l = mid;
+			else r = mid;
+		}
+		cout << max(l, *min_element(v.begin(), v.end())) << endl;
+	}
+}
