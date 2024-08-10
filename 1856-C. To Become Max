@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int mod = 1e9 + 7;
+
+int main() 
+{
+	int t;
+	cin >> t;
+	while(t--){
+		int n, k;
+		cin >> n >> k;
+		vector<int> v(n);
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+		}
+		int ans = *max_element(v.begin(), v.end());
+		for(int i = 0; i < n-1; i++){
+			int l = 0, r = k;
+			while(r >= l){
+				int mid = (l+r)/2;
+				int tmp = mid+v[i] ,tmpk = k;
+				int ok = 1;
+				for(int j = i; j < n-1; j++){
+					if(v[j] >= tmp - (j-i)){
+						ok = 1;
+						break;
+					}else if(tmp - (v[j] + (j-i)) > tmpk){
+						ok = 0;
+						break;
+					}else{
+						tmpk -= tmp-(v[j]+(j-i));
+						if(j == n-2 && v[n-1] < tmp - (j-i+1)){
+							ok = 0;
+						}
+					}
+				}
+				if(ok){
+					l = mid+1;
+					//cout << i << " " << mid << endl;
+					ans = max(ans, v[i]+mid);
+				}
+				else r = mid-1;
+			}	
+		}
+		cout << ans << endl;
+	}
+}
