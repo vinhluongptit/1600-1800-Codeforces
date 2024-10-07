@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+using ll = long long;
+const int mod = 1e9 + 7;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+ll exponen(ll x, ll y){
+	ll ans = 1;
+	while(y > 0){
+		if(y % 2 == 1){
+			ans = (ans*x) % mod;
+		}
+		ans %= mod;
+		x = (x*x) % mod;
+		y /= 2;
+	}
+	return ans;
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--){
+		ll l, r, k;
+		cin >> l >> r >> k;
+		if(k >= 10){
+			cout << 0 << endl;
+			continue;
+		}
+		ll tmp = 9/k + 1;
+    ll dap = exponen(tmp, l) * (tmp-1);
+    dap %= mod;
+		ll ans1 = (dap*tmp) % mod;
+		ll ans2 = 1 - exponen(tmp, r-l);
+		if (ans2 < 0) ans2 += mod;
+		ll ans3 = 1 - tmp;
+		if (ans3 < 0) ans3 += mod;
+		ll ans3_inv = exponen(ans3, mod - 2); 
+    ll tmp_inv = exponen(tmp, mod - 2);   
+    ll result = (ans1 * ((ans2 * ans3_inv) % mod) % mod * tmp_inv) % mod;
+    cout << result << endl;
+	}
+}
