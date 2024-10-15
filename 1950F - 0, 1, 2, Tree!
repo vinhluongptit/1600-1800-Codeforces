@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+const int mod = 1e9 + 7;
+using ll = long long;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+    int t;
+    cin >> t;
+    while(t--){
+		int a, b, c;
+		cin >> a >> b >> c;
+//		if(a == 0){
+//			if(c != 1) cout << -1;
+//			else{
+//				cout << b;
+//			}
+//			cout << endl;
+//			continue;
+//		}
+		int tmp = 0;
+		int ok;
+		int ans = 0;
+		for(int i = 1; i <= 1000; i++){
+			if(a < tmp+pow(2, i-1)){
+				ok = i-1;
+				break;
+			}else tmp += pow(2,i-1);
+		}
+		int tam = pow(2, ok);
+		if((a-tmp)*2 + (tam-(a-tmp)) != c){
+			cout << -1;
+		}else{
+			int thick = (a-tmp)*2 + (tam-(a-tmp));
+			ans = ok;
+			if(a - tmp != 0){
+				ans++;
+				b -= pow(2, ok) - (a-tmp);
+			}
+			if(b > 0){
+				if(b % thick == 0) ans += b/thick;
+				else{
+					ans += b/thick;
+					ans++;
+				}
+			}
+			cout << ans;
+		}
+		cout << endl;
+	}
+}
+
