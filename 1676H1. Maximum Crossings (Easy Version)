@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+using ll = long long;
+const int mod = 1e9 + 7;
+
+typedef tree<pair<ll, ll>, null_type, less<pair<int,int>>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--){
+		ll n; cin >> n;
+		vector<ll> v(n);
+		ordered_set ms;
+		map<ll,ll> mp;
+		ll ans = 0;
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+			ll tmp = ms.size() - ms.order_of_key({v[i], mp[v[i]]+1});
+			ans += tmp;
+			ms.insert({v[i], mp[v[i]]});
+			mp[v[i]]++;
+		}
+		for(auto it : mp){
+			if(it.second > 1){
+				ans += (it.second - 1)*(it.second)/2;
+			}
+		}
+		cout << ans << endl;
+	}
+}
